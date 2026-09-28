@@ -1,0 +1,54 @@
+# Local configuration and credentials
+.env
+.env.*
+*.pem
+*.key
+credentials*
+.codex/
+.agents/
+
+# Build/editor leftovers
+.DS_Store
+node_modules/
+__pycache__/
+*.pyc
+*.log
+*.blend
+*.blend[0-9]*
+
+# Paused concepts, personal photographs and local verification captures
+/archive/
+/artifacts/
+/concepts.html
+/design-studies.html
+/gift-concepts.html
+/design-prompts.md
+/design-qa.md
+/styles/birthday.css
+/assets/*
+!/assets/space/
+/references/*
+!/references/anime-hangar/
+
+# Publish the working web app; keep the authoring pipeline local.
+/scripts/blender/
+/scripts/assets/
+/models/*
+!/models/hangar/
+!/models/strike-freedom/
+/models/hangar/*
+!/models/hangar/README.md
+!/models/hangar/seed-inspired-hangar.glb
+/models/strike-freedom/*
+!/models/strike-freedom/README.md
+!/models/strike-freedom/articulated/
+!/models/strike-freedom/refined/
+!/models/strike-freedom/renders/
+/models/strike-freedom/articulated/*
+!/models/strike-freedom/articulated/README.md
+!/models/strike-freedom/articulated/strike-freedom-articulated-hq.glb
+!/models/strike-freedom/articulated/export-validation.json
+/models/strike-freedom/refined/*
+!/models/strike-freedom/refined/strike-freedom-web.glb
+/models/strike-freedom/renders/*
+!/models/strike-freedom/renders/refined-hero.png

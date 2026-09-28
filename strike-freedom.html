@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="dark">
+<title>William’s Hangar · Strike Freedom</title>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
+<link rel="stylesheet" href="styles/hangar-experience.css?v=birthday-1">
+</head>
+<body>
+<svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="icon-back" viewBox="0 0 24 24"><path d="m14 6-6 6 6 6M8 12h12"/></symbol>
+<symbol id="icon-overview" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="icon-cockpit" viewBox="0 0 24 24"><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/></symbol>
+<symbol id="icon-walkway" viewBox="0 0 24 24"><path d="m4 8 8-5 8 5v8l-8 5-8-5V8Zm0 0 8 5 8-5m-8 5v8"/></symbol>
+<symbol id="icon-wing" viewBox="0 0 24 24"><path d="m10 17-7 3 4-9 4-6 1 9 1-9 4 6 4 9-7-3m-2-3v7"/></symbol>
+<symbol id="icon-sound" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4V9Z"/><path class="sound-waves" d="M16 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="sound-slash" d="m17 10 4 4m0-4-4 4"/></symbol>
+<symbol id="icon-more" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="9" cy="18" r="2"/></symbol>
+<symbol id="icon-chevron" viewBox="0 0 24 24"><path d="m7 14 5-5 5 5"/></symbol>
+<symbol id="icon-camera" viewBox="0 0 24 24"><path d="M4 7h4l2-3h4l2 3h4v13H4V7Z"/><circle cx="12" cy="13" r="4"/></symbol>
+<symbol id="icon-pilot" viewBox="0 0 24 24"><path d="m12 3 7 17-7-4-7 4 7-17Zm0 0v13"/></symbol>
+<symbol id="icon-up" viewBox="0 0 24 24"><path d="m6 13 6-6 6 6m-6-6v13"/></symbol>
+<symbol id="icon-turn" viewBox="0 0 24 24"><path d="M7 7h6a6 6 0 1 1-4 10M7 7l4-4M7 7l4 4"/></symbol>
+</defs></svg>
+<canvas id="hangar" tabindex="0" role="img" aria-label="Interactive Strike Freedom Gundam. Drag or use arrow keys to orbit; scroll to zoom. P enters flight mode. In flight, drag to steer and fly. W thrusts, S brakes, A/D turn, Q/E strafe, Space rises, C descends, and Shift boosts. V switches front and rear views. R resets; Escape docks. H toggles viewing controls."></canvas>
+<h1 class="sr-only">Strike Freedom · Hangar 01</h1>
+<header class="scene-ui" data-hud>
+<span class="brand birthday-dedication" aria-label="For William Zhang. Happy birthday, 29 September." title="Happy birthday, William · 29 September"><span>W.Z. <b>29.09</b></span></span>
+<button id="pilot-toggle" class="pilot-toggle" type="button" data-needs-model disabled aria-label="Enter flight mode" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#icon-pilot"/></svg><span data-label>Pilot</span></button>
+</header>
+<section id="flight-controls" aria-label="Flight controls" hidden>
+<div class="flight-instruments"><output id="flight-status" aria-label="Flight status" aria-live="off">UNDOCKING</output><progress id="flight-altitude" max="100" value="0" aria-label="Flight altitude"></progress></div>
+<p class="flight-help">Drag to fly <span>·</span> <kbd>W S</kbd> thrust / brake <span>·</span> <kbd>A D</kbd> turn <span>·</span> <kbd>Shift</kbd> boost <span>·</span> <kbd>V</kbd> view</p>
+<div class="flight-steering"><button id="flight-stick" type="button" aria-label="Flight stick: drag up to thrust, sideways to turn, down to brake. Keyboard: W/S thrust and brake, A/D turn."><span class="stick-ring" aria-hidden="true"></span><span class="stick-knob" aria-hidden="true"><svg class="icon"><use href="#icon-pilot"/></svg></span></button><span class="stick-caption" aria-hidden="true">STEER</span></div>
+<div class="flight-actions" role="group" aria-label="Altitude and thrust">
+<button class="flight-key" type="button" data-flight-action="up" aria-label="Ascend" title="Ascend · Space"><svg class="icon" aria-hidden="true"><use href="#icon-up"/></svg></button>
+<button class="flight-key boost-key" type="button" data-flight-action="boost" aria-label="Boost" title="Boost · Shift"><svg class="icon" aria-hidden="true"><use href="#icon-pilot"/></svg></button>
+<button class="flight-key descend-key" type="button" data-flight-action="down" aria-label="Descend" title="Descend · C"><svg class="icon" aria-hidden="true"><use href="#icon-up"/></svg></button>
+</div>
+</section>
+<div class="sr-only" id="scene-state">ENTERING HANGAR</div>
+<div class="bottom scene-ui" data-hud>
+<p class="explore-hint" id="explore-hint" aria-hidden="true">Drag to explore</p>
+<div class="control-strip" role="group" aria-label="Hangar controls">
+<nav class="camera-controls" aria-label="Camera position">
+<button class="icon-button" type="button" data-view="overview" aria-label="Overview" data-tooltip="Overview" aria-pressed="true" data-needs-model disabled><svg class="icon" aria-hidden="true"><use href="#icon-overview"/></svg></button>
+<button class="icon-button" type="button" data-view="cockpit" aria-label="Cockpit" data-tooltip="Cockpit" aria-pressed="false" data-needs-model disabled><svg class="icon" aria-hidden="true"><use href="#icon-cockpit"/></svg></button>
+<button class="icon-button" type="button" data-view="walkway" aria-label="Walkway" data-tooltip="Walkway" aria-pressed="false" data-needs-model disabled><svg class="icon" aria-hidden="true"><use href="#icon-walkway"/></svg></button>
+</nav>
+<span class="control-divider" aria-hidden="true"></span>
+<button class="deploy-button" id="wings" type="button" aria-pressed="false" aria-label="Deploy wings" data-needs-model disabled><svg class="icon" aria-hidden="true"><use href="#icon-wing"/></svg><span data-label>Deploy</span></button>
+<span class="control-divider" aria-hidden="true"></span>
+<button id="flight-view" class="flight-view" type="button" aria-label="Switch to front view" aria-keyshortcuts="V" data-tooltip="Front view · V" disabled><svg class="icon" aria-hidden="true"><use href="#icon-camera"/></svg><span data-label>Front</span></button>
+<button class="icon-button" id="sound" type="button" aria-pressed="false" aria-label="Enable hangar ambience" data-tooltip="Sound"><svg class="icon" aria-hidden="true"><use href="#icon-sound"/></svg></button>
+<button class="icon-button" id="more-options" type="button" aria-expanded="false" aria-controls="hangar-options" aria-label="More options" data-tooltip="Options"><svg class="icon" aria-hidden="true"><use href="#icon-more"/></svg></button>
+</div>
+<div class="options-panel" id="hangar-options" role="group" aria-label="More hangar options" hidden>
+<button id="lights" type="button" aria-pressed="true" data-needs-model disabled><span data-label>Work lights</span><span class="toggle-mark" aria-hidden="true"></span></button>
+<button type="button" id="replay-arrival" data-needs-model disabled>Replay arrival<span aria-hidden="true">↺</span></button>
+<button type="button" id="hide-controls">Hide controls<kbd>H</kbd></button>
+<a href="strike-freedom-studio.html">Studio view<span aria-hidden="true">↗</span></a>
+<button type="button" id="show-references">References &amp; credits<span aria-hidden="true">↗</span></button>
+</div>
+</div>
+<button id="reveal-controls" type="button" aria-label="Show controls" hidden><svg class="icon" aria-hidden="true"><use href="#icon-chevron"/></svg></button>
+<div class="cinema-bar top" aria-hidden="true"></div><div class="cinema-bar bottom-bar" aria-hidden="true"></div>
+<div id="arrival" hidden><p id="arrival-caption" aria-hidden="true">Hangar 01</p><button type="button" id="skip-arrival">Skip</button></div>
+<div id="loading" role="status"><h2>HANGAR <span>01</span></h2><progress id="load-progress" max="100" value="0" aria-label="Loading hangar"></progress></div>
+<div class="sr-only" id="announcement" aria-live="polite"></div>
+<dialog id="references" aria-labelledby="reference-title"><div class="dialog-top"><div><span class="eyebrow">ART DIRECTION</span><h2 id="reference-title">From the actual anime.</h2></div><button id="close-references" type="button">Close</button></div>
+<p class="dialog-copy">Official episode stills guided the violet-gray bulkheads, overhead work lights, catwalks and service cables. The hangar is an original 3D interpretation of these details, rather than an exact reconstruction of a single ship.</p>
+<div class="reference-grid">
+<figure><img src="references/anime-hangar/destiny-phase39-2.jpg" alt="Official SEED Destiny PHASE-39 still with a curved hangar bulkhead, maintenance structures and white work light." loading="lazy"><figcaption><strong>Curved bulkheads &amp; directional light</strong><a href="https://gundam-official.com/seed/destiny/story/detail.php?id=39" target="_blank" rel="noreferrer">SEED DESTINY · PHASE-39 · Official still</a></figcaption></figure>
+<figure><img src="references/anime-hangar/seed-phase08-2.jpg" alt="Official SEED PHASE-08 still with dark foreground catwalks, violet-gray panels and hanging maintenance cables." loading="lazy"><figcaption><strong>Catwalk silhouettes &amp; layered structure</strong><a href="https://gundam-official.com/seed/seed/story/detail.php?id=8" target="_blank" rel="noreferrer">SEED · PHASE-08 · Official still</a></figcaption></figure>
+<figure><img src="references/anime-hangar/destiny-hangar-phase13.jpg" alt="Official SEED Destiny episode gallery still showing a person on a catwalk in front of a docked mobile suit." loading="lazy"><figcaption><strong>Human-scale walkway viewpoint</strong><a href="https://hk.gundam-official.com/seed/destiny/story/13/" target="_blank" rel="noreferrer">SEED DESTINY · Official episode gallery</a></figcaption></figure>
+<figure><img src="references/anime-hangar/destiny-phase35-5.jpg" alt="Official SEED Destiny maintenance still with yellow, red and dark service cables around a mobile suit." loading="lazy"><figcaption><strong>Service cables &amp; cool ambient light</strong><a href="https://en.gundam.info/about-gundam/series-pages/seeddestiny/story/35/" target="_blank" rel="noreferrer">SEED DESTINY · Official episode gallery</a></figcaption></figure>
+</div>
+<p class="credits">Anime reference imagery © SUNRISE. Included here for this local design study; these stills are not textures in the 3D scene.<br>Earth surface: <a href="https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-map/" target="_blank" rel="noreferrer">NASA Earth Observatory · Blue Marble</a>, June 2004. Procedural clouds, atmosphere and original carrier exterior.<br>Original Strike Freedom mesh: <a href="https://sketchfab.com/3d-models/strike-freedom-gundam-0d5a236cdb164c5094a8d296d9352943" target="_blank" rel="noreferrer">K0077</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>. Modified materials, photo-guided cockpit and sensor details, armor cleanup, two-stage wing articulation and rigid limb joints. Fine kit details remain approximate.<br><a href="models/strike-freedom/articulated/strike-freedom-articulated-hq.glb" download>Gundam 3D model (.glb)</a> · <a href="models/hangar/seed-inspired-hangar.glb" download>Hangar 3D model (.glb)</a></p>
+</dialog>
+<script type="module" src="scripts/web/hangar.js?v=carrier-view-6"></script>
+<script>setTimeout(()=>{if(!document.body.classList.contains('ready')&&!document.querySelector('#loading a')){document.querySelector('#loading').insertAdjacentHTML('beforeend','<p>Still loading. <a href="strike-freedom-studio.html">Try the studio</a></p>')}},20000)</script>
+
+</body></html>

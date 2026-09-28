@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "triangles_preserved": 380172,
+  "texture_count": 11,
+  "original_png_bytes_identical": true,
+  "pivot_count": 20,
+  "identity_rest_rotations": true,
+  "unit_pivot_scales": true,
+  "mechanical_hierarchies_verified": true,
+  "weapons_shields_sensors_linked": true,
+  "wing_controls_preserved": 16,
+  "no_exported_cameras_or_lights": true,
+  "draco_compressed": true,
+  "bytes": 20373984
+}

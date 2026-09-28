@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark">
+<title>Strike Freedom — The Collection</title>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0d1118;color:#f1f0eb;font-family:Arial,Helvetica,sans-serif}a{color:inherit}button,a{touch-action:manipulation}button:focus-visible,a:focus-visible{outline:2px solid #dfbd6b;outline-offset:5px}
+header{height:88px;margin:0 5vw;border-bottom:1px solid #ffffff20;display:flex;align-items:center;justify-content:space-between}header a{text-decoration:none;font-size:11px;letter-spacing:.18em;text-transform:uppercase}.mark{display:flex;align-items:center;gap:14px}.emblem{color:#d0ae63;font-size:24px}.eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;color:#c4a763;text-transform:uppercase}
+main{position:relative;max-width:1800px;margin:auto}.heading{position:absolute;z-index:2;left:5vw;top:38px;pointer-events:none}.heading h1{font-size:clamp(30px,4vw,58px);line-height:1.03;font-weight:400;letter-spacing:-.04em;margin:14px 0}.heading p{font-size:12px;color:#969ca5;line-height:1.6;margin:0}.edition{position:absolute;right:5vw;top:42px;z-index:2;text-align:right;color:#858e9b;font-size:10px;letter-spacing:.17em;line-height:1.9}
+model-viewer{display:block;width:100%;height:calc(100svh - 178px);min-height:640px;background:radial-gradient(ellipse at 52% 54%,#26313e 0%,#151b25 42%,#0d1118 72%);--poster-color:transparent}.progress{position:absolute;bottom:0;left:0;width:100%;height:2px;background:#d0ae63;transform:scaleX(0);transform-origin:left;transition:transform .2s}.status{position:absolute;bottom:103px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.05em;color:#bdc5cf;pointer-events:none}
+.toolbar{position:absolute;left:50%;bottom:35px;transform:translateX(-50%);display:flex;gap:6px;padding:7px;background:#101620e8;border:1px solid #ffffff24;border-radius:36px;backdrop-filter:blur(15px);white-space:nowrap}.toolbar button{font:inherit;font-size:11px;border:0;padding:12px 18px;background:transparent;color:#a6adb8;border-radius:25px;cursor:pointer}.toolbar button[aria-pressed=true]{background:#c9aa67;color:#15181d}.toolbar button:hover{color:white;background:#313b49}.toolbar .divider{width:1px;margin:8px 5px;background:#ffffff20}
+footer{min-height:90px;border-top:1px solid #ffffff20;margin:0 5vw;display:flex;align-items:center;justify-content:space-between;gap:25px;color:#858e9b;font-size:10px;line-height:1.8}footer p{max-width:680px}footer a{text-underline-offset:3px}.files{display:flex;gap:22px;white-space:nowrap;color:#d8dbe0}.error{color:#e9c877}
+@media(max-width:700px){header{height:66px}.heading{top:25px}.heading h1{font-size:31px}.heading p{font-size:10px}.edition{display:none}model-viewer{height:calc(100svh - 190px);min-height:560px}.toolbar{bottom:25px;gap:1px;padding:5px}.toolbar button{padding:11px 13px;font-size:10px}.status{bottom:82px}footer{align-items:flex-start;flex-direction:column;gap:0;padding:13px 0 20px}.files{font-size:11px}footer p{margin-top:0}.heading .eyebrow{font-size:9px}}
+.status{bottom:10px}@media(prefers-reduced-motion:reduce){.progress{transition:none}}
+</style></head>
+<body>
+<header><a class="mark" href="index.html"><span class="emblem" aria-hidden="true">✦</span> The Collection</a><span class="eyebrow">Private hangar · 001</span></header>
+<main>
+<div class="heading"><span class="eyebrow">ZGMF-X20A</span><h1>Strike<br>Freedom.</h1><p>A study in white armor and gold.<br>Refined from your collection photographs.</p></div>
+<div class="edition">SUPER DRAGOON<br>DEPLOYED CONFIGURATION</div>
+<model-viewer id="model" src="models/strike-freedom/refined/strike-freedom-web.glb" poster="models/strike-freedom/renders/refined-hero.png"
+alt="Refined Strike Freedom Gundam with white armor, gold frame and eight deployed blue DRAGOON pods. Drag to rotate and scroll to zoom."
+camera-controls touch-action="pan-y" camera-orbit="25deg 80deg 110%" camera-target="0m 1.58m 0m" field-of-view="30deg"
+min-camera-orbit="auto 10deg 35%" max-camera-orbit="auto 170deg 220%" shadow-intensity="1" shadow-softness="1" exposure="1" environment-image="neutral" interaction-prompt="none">
+<div class="progress" slot="progress-bar" id="progress"></div></model-viewer>
+<div class="status" id="status" role="status">Loading the 3D model…</div>
+<div class="toolbar" aria-label="Model viewing controls">
+<button type="button" data-orbit="0deg 90deg 110%" aria-pressed="false">Front</button>
+<button type="button" data-orbit="25deg 80deg 110%" aria-pressed="true">Three-quarter</button>
+<button type="button" data-orbit="180deg 90deg 110%" aria-pressed="false">Rear</button>
+<span class="divider" aria-hidden="true"></span><button type="button" id="spin" aria-pressed="false">Auto rotate</button></div>
+</main>
+<footer><p>Photo-guided interpretation; fine decals and exact kit geometry remain approximate.<br>
+Original model by <a href="https://sketchfab.com/3d-models/strike-freedom-gundam-0d5a236cdb164c5094a8d296d9352943" target="_blank" rel="noreferrer">K0077</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>. Modified materials, arm geometry and wing articulation. Viewer: <a href="https://modelviewer.dev/" target="_blank" rel="noreferrer">model-viewer</a>.</p>
+<div class="files"><a href="models/strike-freedom/articulated/strike-freedom-articulated-hq.glb" download>Articulated model (.glb) ↗</a><a href="models/strike-freedom/refined/strike-freedom-web.glb" download>3D model ↗</a></div></footer>
+<script>
+const model=document.querySelector('#model'),status=document.querySelector('#status');
+model.addEventListener('progress',event=>{const p=event.detail.totalProgress;document.querySelector('#progress').style.transform=`scaleX(${p})`;if(p<1)status.textContent=`Loading the 3D model · ${Math.round(p*100)}%`});
+model.addEventListener('load',()=>{status.textContent='Drag to explore · Scroll or pinch to zoom';document.querySelector('#progress').hidden=true});
+model.addEventListener('error',()=>{status.textContent='3D preview unavailable. The Blender render and downloadable files are still available.';status.classList.add('error')});
+document.querySelectorAll('[data-orbit]').forEach(button=>button.addEventListener('click',()=>{model.autoRotate=false;document.querySelector('#spin').setAttribute('aria-pressed','false');model.cameraOrbit=button.dataset.orbit;document.querySelectorAll('[data-orbit]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));if(matchMedia('(prefers-reduced-motion:reduce)').matches)model.jumpCameraToGoal()}));
+document.querySelector('#spin').addEventListener('click',event=>{model.autoRotate=!model.autoRotate;event.currentTarget.setAttribute('aria-pressed',String(model.autoRotate))});
+setTimeout(()=>{if(!customElements.get('model-viewer')){status.textContent='Connect to the internet to load the 3D viewer. The render is shown above.';status.classList.add('error')}},15000);
+</script></body></html>
