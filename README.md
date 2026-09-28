@@ -2,13 +2,17 @@
 
 The gift app features **Strike Freedom** in an interactive maintenance hangar, with an orbital flight mode. `index.html` opens Strike Freedom directly.
 
+**Website:** [William’s Hangar](https://hematteo.github.io/gundam-app/)
+
+GitHub Pages serves the static site from the root of `main`. Pushes to `main` update the website automatically. `.nojekyll` keeps the HTML, JavaScript and models as static files without a Jekyll build.
+
 Start a local preview from this folder:
 
 ```sh
 python3 -m http.server 4189 --bind 127.0.0.1
 ```
 
-Open `http://127.0.0.1:4189/`. The models stay local. The pinned Three.js library and Draco decoder load from public CDNs, so the 3D page needs an internet connection on its first visit. This is a local preview, not a public deployment.
+Open `http://127.0.0.1:4189/` for a local preview. Models are served alongside the app. The pinned Three.js library and Draco decoder load from public CDNs, so the 3D page needs an internet connection on its first visit.
 
 ## Public repository
 
