@@ -2,9 +2,7 @@
 
 The gift app features **Strike Freedom** in an interactive maintenance hangar, with an orbital flight mode. `index.html` opens Strike Freedom directly.
 
-**Website:** [William’s Hangar](https://matteohe.com/gundam-app/)
-
-GitHub Pages serves the static site from the root of `main`. Pushes to `main` update the website automatically. `.nojekyll` keeps the HTML, JavaScript and models as static files without a Jekyll build.
+The site is currently unpublished. The repository contains the complete static app and can be served locally or hosted again by its owner. `.nojekyll` supports static hosting without a Jekyll build.
 
 Start a local preview from this folder:
 
